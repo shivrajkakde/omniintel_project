@@ -33,8 +33,8 @@ with col2:
 
 # When the user clicks the button, call the FastAPI backend
 if predict_button:
-    api_url = "https://omniintel-backend.onrender.com/predict"
-    payload = {
+    api_url = "https://your-render-service-name.onrender.com/predict"
+    payload = { 
         "shipping_cost": shipping_cost,
         "delivery_time_days": delivery_time_days,
         "historical_failure_rate": historical_failure_rate
