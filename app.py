@@ -24,7 +24,7 @@ with col2:
 
 if predict_button:
     # ⚠️ REPLACE WITH YOUR ACTUAL RENDER BACKEND URL ENDING IN /predict
-    api_url = "https://YOUR-ACTUAL-RENDER-SERVICE-NAME.onrender.com/predict"
+    api_url = "https://omniintel-project.onrender.com/predict"
     
     payload = {
         "shipping_cost": shipping_cost,
