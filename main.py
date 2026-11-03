@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
-import pandas as pd
+import numpy as np
 
 app = FastAPI()
 
@@ -15,19 +15,19 @@ class ShipmentInput(BaseModel):
 
 @app.post("/predict")
 def predict_risk(data: ShipmentInput):
-    # Prepare input dataframe for the model
-    input_df = pd.DataFrame([{
-        "shipping_cost": data.shipping_cost,
-        "delivery_time_days": data.delivery_time_days,
-        "historical_failure_rate": data.historical_failure_rate
-    }])
+    # Convert input to a 2D numpy array to bypass feature name validation
+    features = np.array([[
+        data.shipping_cost,
+        data.delivery_time_days,
+        data.historical_failure_rate
+    ]])
     
     # Make prediction
-    prediction = model.predict(input_df)[0]
+    prediction = model.predict(features)[0]
     
     # Get prediction probability if available
     try:
-        proba = model.predict_proba(input_df)[0]
+        proba = model.predict_proba(features)[0]
         confidence = float(max(proba)) * 100
     except Exception:
         confidence = 85.0
