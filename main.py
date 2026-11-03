@@ -5,7 +5,7 @@ import numpy as np
 
 app = FastAPI()
 
-# Load your trained model
+# Load your trained machine learning model
 model = joblib.load("delay_model.pkl")
 
 class ShipmentInput(BaseModel):
@@ -15,7 +15,7 @@ class ShipmentInput(BaseModel):
 
 @app.post("/predict")
 def predict_risk(data: ShipmentInput):
-    # Convert input to a 2D numpy array to bypass feature name validation
+    # Convert input to a 2D numpy array in the exact order trained
     features = np.array([[
         data.shipping_cost,
         data.delivery_time_days,
@@ -25,7 +25,7 @@ def predict_risk(data: ShipmentInput):
     # Make prediction
     prediction = model.predict(features)[0]
     
-    # Get prediction probability if available
+    # Get prediction probability safely
     try:
         proba = model.predict_proba(features)[0]
         confidence = float(max(proba)) * 100

@@ -24,12 +24,12 @@ with col2:
 
 if predict_button:
     # ⚠️ REPLACE WITH YOUR ACTUAL RENDER BACKEND URL ENDING IN /predict
-    api_url = "https://omniintel-project.onrender.com/predict"
+    api_url = "https://YOUR-ACTUAL-RENDER-SERVICE-NAME.onrender.com/predict"
     
     payload = {
-        "shipping_cost": shipping_cost,
-        "delivery_time_days": delivery_time_days,
-        "historical_failure_rate": historical_failure_rate
+        "shipping_cost": float(shipping_cost),
+        "delivery_time_days": int(delivery_time_days),
+        "historical_failure_rate": float(historical_failure_rate)
     }
 
     try:
